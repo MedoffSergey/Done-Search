@@ -30,9 +30,9 @@ html
         form.form-inline
            input#searchInput.form-control.mr-sm-2(type='search' name="search" placeholder='Поиск' aria-label='Search')
            
-           button#searchButton.btn.btn-success.my-2.my-sm-0(type='submit') Искать
-    //- 
-           
+           button#searchButton.btn.btn-success.my-2.mr-5(type='submit') Искать
+
+           a#loginBtn.btn.btn.btn-success.my-2.mx-5(href="login") Вход
            
     .container-fluid      
       .container
@@ -61,8 +61,8 @@ html
                     input#recipient-name.form-control(type='text')
                     label.col-form-label(for='recipient-name') Ip:
                     input#recipient-ip.form-control(type='text')
-                    label.col-form-label(for='recipient-name') Redirect:
-                    input.checkbox.cr.ml-2(type='checkbox' width = "15" height = "15")
+                    //- label.col-form-label(for='recipient-name') Redirect:
+                    //- input.checkbox.cr.ml-2(type='checkbox' width = "15" height = "15")
                   
                 button.btn.btn-success.float-right(type='button' onclick = 'add_files()') Добавить      
         
@@ -71,7 +71,7 @@ html
       
         //- // Footer
         //- footer.border-top.mt-5.page-footer.font-small.pt-4.sticky-bottom
-        //-   // Footer Links
+        //-   // Footer s
         //-   .text-center.text-md-left
         //-     .row
         //-         .col-lg-9.ml-5

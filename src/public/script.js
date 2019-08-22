@@ -42,7 +42,7 @@ function add_files () {
 
 function superSearch(){
   let searchResult = document.getElementById ('searchInput').value;
-  console.log(searchResult)
+
 
   $.ajax({
     url: "/search",   //путь
@@ -53,6 +53,24 @@ function superSearch(){
     },
     success: function(){
       window.location.reload()    //если успешно, то перезапускаем страницу через аякс
+    }
+  });
+}
+
+function loginAsUser(){
+  let loginResult = document.getElementById ('inputLogin').value;
+  let passwordResult = document.getElementById ('inputPassword').value;
+
+  $.ajax({
+    url: "/getLogin",   //путь
+    type: "GET",  //Метод отправки
+    data:{        //передается ключ значение после ?
+      login: loginResult,
+      password:passwordResult
+    },
+
+    success: function(html){
+      // window.location.replace("/");    //если успешно, то перезапускаем страницу через аякс
     }
   });
 }

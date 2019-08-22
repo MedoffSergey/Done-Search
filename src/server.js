@@ -79,6 +79,24 @@ app.get('/add', function(req, res){
     });
 });
 
+app.get('/login', function(req, res){
+    res.render('login', {title:'Вход'});
+});
+
+app.get('/getLogin', function(req, res){
+
+  const out = {
+    token: 'supertoken-3213123123',
+    str:req.query.login+'--'+req.query.password,
+    name: req.query.login
+  }
+
+  // let outStr=JSON.stringify(out);
+  console.log(out);
+  res.json({outStr});
+});
+
+
 //запускаем сервер
 app.listen(3000, function () {
     console.log ('Отслеживаем порт: 3000!');
