@@ -69,8 +69,15 @@ function loginAsUser(){
       password:passwordResult
     },
 
-    success: function(html){
-      // window.location.replace("/");    //если успешно, то перезапускаем страницу через аякс
-    }
-  });
+    success: function(out){
+          if (out.status == 1){
+          document.getElementById("tokenLi").innerHTML=out.token; //вывод html
+          document.getElementById("nameLi").innerHTML=out.name;
+
+        }
+        else{
+          alert("Пользователь не найден")
+        }
+  }
+});
 }

@@ -18,13 +18,16 @@ html
               label.col-form-label(for='exampleInputEmail1') Login
               input#inputLogin.form-control(type='text' placeholder='ivanov.ivan@mail.ru')
               label.col-form-label(for='exampleInputPassword1') Password
-              input#inputPassword.form-control(type='text' placeholder='***********')
+              input#inputPassword.form-control(type='password' placeholder='***********')
                 
             
           button.btn.btn-success.float-right(type='button' onclick = 'loginAsUser()') Вход
           
-    h1=outStr
-          
+  .row.justify-content-center.text-center
+    ul.list-group.text-left.col-2
+      h3 User Data 
+      li.list-group-item.list-group-item-action#tokenLi
+      li.list-group-item.list-group-item-action#nameLi
           
     script(src="script.js")
   style

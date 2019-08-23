@@ -13,12 +13,18 @@ app.set('view engine', 'pug');    // указываем используемый
 
 const directory = '/home/smedov/Work/Test/';    //Указываем путь текущей дериктории
 
+const userList = [
+    { id: 1, name: 'Admin', login: 'Admin', password:"qwe"},
+    { id: 2, name: 'TestUser', login: 'test', password:"123"},
+    { id: 3, name: 'Serega', login: 'MRG_Serejka', password:"12345"}
+
+];
 
 
 app.use(express.static(path.join(__dirname, 'public')));    //добовляет файлы которые на компьютере для загрузки если они имеются
 
 //Главная страница
-app.get('/', function (req, res) {
+app.get('/', function (req, res) {//Главная страница
     const files = fs.readdirSync(directory);           //Прочитываем файлы из текущей директории
 
     for(let i=0; i<files.length;i++)               //убираем расширение
@@ -44,7 +50,7 @@ app.get('/', function (req, res) {
     }else
 
     res.render('index', { title: 'Directory', value: files});       //рендерим файл index.pug
-});
+      });
 
 
 app.get('/delete', function(req, res) {          //  удаления файла из текущей директории
@@ -58,7 +64,7 @@ app.get('/delete', function(req, res) {          //  удаления файла
 });
 
 
-app.get('/add', function(req, res){
+app.get('/add', function(req, res){     //добавление
 
     let domain = req.query.domain;
     let fileName = directory + domain + '.conf'
@@ -79,23 +85,54 @@ app.get('/add', function(req, res){
     });
 });
 
-app.get('/login', function(req, res){
+app.get('/login', function(req, res){     //авторизация
     res.render('login', {title:'Вход'});
 });
 
-app.get('/getLogin', function(req, res){
+function check(userLogin)
+  {
+      for (let i=0 ; i< userList.length;i++)
+        {
+          if (userList[i].login === userLogin)
+          {
+              return userList[i];
+          }
+          else
+          return false;
+        }
 
-  const out = {
-    token: 'supertoken-3213123123',
-    str:req.query.login+'--'+req.query.password,
-    name: req.query.login
   }
 
-  // let outStr=JSON.stringify(out);
-  console.log(out);
-  res.json({outStr});
-});
 
+
+app.get('/getLogin', function (req, res) {
+    let login = req.query.login
+    let password = req.query.password
+    let uniqueUser = check(login)
+
+    if(uniqueUser && password == uniqueUser.password){
+
+          const out = {
+              status: 1,
+              token: 'supertoken-3213123123',
+              str:req.query.login+'--'+req.query.password,
+              name: req.query.login,
+              user: check(login).id
+          }
+
+
+        // if(out.user.password == password )
+        // {
+        // else{
+        //   console.log("Пароль неверен")
+        // }
+        res.json(out)            //отправляю json формат на клиент
+      }
+
+    else {
+      res.json({status:0})
+    }
+ });
 
 //запускаем сервер
 app.listen(3000, function () {
