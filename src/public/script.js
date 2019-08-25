@@ -71,7 +71,7 @@ function loginAsUser(){
 
     success: function(out){
           if (out.status == 1){
-          document.getElementById("tokenLi").innerHTML=out.token; //вывод html
+          document.getElementById("idLi").innerHTML=out.user; //вывод html
           document.getElementById("nameLi").innerHTML=out.name;
 
         }

@@ -11,13 +11,12 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');    // указываем используемый шаблонизатор HTML кода
 
-const directory = '/home/smedov/Work/Test/';    //Указываем путь текущей дериктории
+const directory = '/home/smedov/Work/Node_js/Test';    //Указываем путь текущей дериктории
 
 const userList = [
-    { id: 1, name: 'Admin', login: 'Admin', password:"qwe"},
-    { id: 2, name: 'TestUser', login: 'test', password:"123"},
-    { id: 3, name: 'Serega', login: 'MRG_Serejka', password:"12345"}
-
+    { id: 1, name: 'TestUser', login: 'test', password:"123"},
+    { id: 2, name: 'admin', login: 'Admin', password:"1234"},
+    { id: 3, name: 'Serega', login: 'mrgserejka', password:"12345"}
 ];
 
 
@@ -91,47 +90,41 @@ app.get('/login', function(req, res){     //авторизация
 
 function check(userLogin)
   {
-      for (let i=0 ; i< userList.length;i++)
-        {
+  for (let i=0 ; i< userList.length;i++)
+      {
           if (userList[i].login === userLogin)
-          {
+              {
+
+              console.log(userList[i]);
               return userList[i];
-          }
-          else
-          return false;
-        }
+              }
+      }
 
+  return false;
   }
-
-
 
 app.get('/getLogin', function (req, res) {
     let login = req.query.login
     let password = req.query.password
-    let uniqueUser = check(login)
+    const uniqueUser = check(login)
 
-    if(uniqueUser && password == uniqueUser.password){
+
+
+    if(password === uniqueUser.password){
 
           const out = {
               status: 1,
               token: 'supertoken-3213123123',
               str:req.query.login+'--'+req.query.password,
               name: req.query.login,
-              user: check(login).id
+              user: uniqueUser.id
           }
-
-
-        // if(out.user.password == password )
-        // {
-        // else{
-        //   console.log("Пароль неверен")
-        // }
+          
         res.json(out)            //отправляю json формат на клиент
       }
-
-    else {
-      res.json({status:0})
-    }
+      else{
+    res.json({status:0})
+  }
  });
 
 //запускаем сервер
